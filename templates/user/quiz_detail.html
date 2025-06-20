@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="card-title">{{ quiz.title }}</h2>
+            <p class="card-text">{{ quiz.description }}</p>
+            <p class="text-muted">Kategoria: {{ quiz.category.name }}</p>
+            <p class="text-muted">Obserwujących: {{ quiz.followers.count() }}</p>
+            
+            <a href="{{ url_for('play_quiz', quiz_id=quiz.id) }}" class="btn btn-primary">Rozpocznij quiz</a>
+            
+            {% if current_user.is_authenticated %}
+                {% if quiz in current_user.followed_quizzes %}
+                <form action="{{ url_for('unfollow_quiz', quiz_id=quiz.id) }}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-outline-danger">Nie obserwuj</button>
+                </form>
+                {% else %}
+                <form action="{{ url_for('follow_quiz', quiz_id=quiz.id) }}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-outline-success">Obserwuj</button>
+                </form>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+    <h3>Komentarze</h3>
+    {% if not quiz.comments %}
+    <p>Brak komentarzy. Bądź pierwszy!</p>
+    {% endif %}
+
+    {% for comment in comments %}
+    <div class="card mb-2">
+        <div class="card-body">
+            <h5 class="card-title">{{ comment.user.username }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ comment.timestamp.strftime('%Y-%m-%d %H:%M') }}</h6>
+            <p class="card-text">{{ comment.content }}</p>
+        </div>
+    </div>
+    {% endfor %}
+
+    <form method="POST" action="{{ url_for('add_comment', quiz_id=quiz.id) }}">
+        <div class="mb-3">
+            <label for="content" class="form-label">Dodaj komentarz</label>
+            <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Dodaj</button>
+    </form>
+</div>
+{% endblock %}

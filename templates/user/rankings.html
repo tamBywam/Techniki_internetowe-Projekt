@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4">Rankingi</h2>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Najlepsi użytkownicy
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Miejsce</th>
+                                <th>Użytkownik</th>
+                                <th>Poprawne odpowiedzi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in user_ranking %}
+                            <tr {% if user.username == current_user.username %}class="table-info"{% endif %}>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ user.username }}</td>
+                                <td>{{ user.correct_answers }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Najpopularniejsze quizy
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Miejsce</th>
+                                <th>Quiz</th>
+                                <th>Liczba podejść</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for quiz in quiz_ranking %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ quiz.title }}</td>
+                                <td>{{ quiz.unique_attempts }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

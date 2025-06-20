@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4">Dodaj nowy quiz</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="title" class="form-label">Tytuł quizu</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Opis</label>
+            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="category_id" class="form-label">Kategoria</label>
+            <select class="form-select" id="category_id" name="category_id" required>
+                <option value="">Wybierz kategorię</option>
+                {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Dodaj quiz</button>
+        <a href="{{ url_for('admin_quizzes') }}" class="btn btn-secondary">Anuluj</a>
+    </form>
+</div>
+{% endblock %}

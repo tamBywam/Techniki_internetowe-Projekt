@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4">Quizy</h2>
+    
+    <div class="mb-3">
+        <a href="{{ url_for('browse_quizzes') }}" 
+           class="btn btn-outline-primary {% if not show_followed %}active{% endif %}">
+            Wszystkie quizy
+        </a>
+        <a href="{{ url_for('browse_quizzes', followed=true) }}" 
+           class="btn btn-outline-primary {% if show_followed %}active{% endif %}">
+            Obserwowane quizy
+        </a>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group">
+                <a href="{{ url_for('browse_quizzes', followed=show_followed) }}" 
+                   class="list-group-item list-group-item-action {% if not selected_category %}active{% endif %}">
+                    Wszystkie kategorie
+                </a>
+                {% for category in categories %}
+                <a href="{{ url_for('browse_quizzes', category_id=category.id, followed=show_followed) }}" 
+                   class="list-group-item list-group-item-action {% if selected_category == category.id %}active{% endif %}">
+                    {{ category.name }}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-9">
+            {% if show_followed and quizzes|length == 0 %}
+            <div class="alert alert-info">
+                Nie obserwujesz jeszcze żadnych quizów. Aby obserwować quiz, przejdź do jego szczegółów i kliknij "Obserwuj".
+            </div>
+            {% endif %}
+            
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                {% for quiz in quizzes %}
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ quiz.title }}</h5>
+                            <p class="card-text">{{ quiz.description|truncate(100) }}</p>
+                            <p class="text-muted">Kategoria: {{ quiz.category.name }}</p>
+                            <p class="text-muted">Obserwujących: {{ quiz.followers.count() }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ url_for('quiz_detail', quiz_id=quiz.id) }}" class="btn btn-outline-primary">Szczegóły</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

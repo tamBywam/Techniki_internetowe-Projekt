@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4">Edytuj pytanie</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="content" class="form-label">Treść pytania</label>
+            <textarea class="form-control" id="content" name="content" rows="3" required>{{ question.content }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Opcje odpowiedzi</label>
+            <input type="text" class="form-control mb-2" name="option1" value="{{ question.option1 }}" required>
+            <input type="text" class="form-control mb-2" name="option2" value="{{ question.option2 }}" required>
+            <input type="text" class="form-control mb-2" name="option3" value="{{ question.option3 }}" required>
+            <input type="text" class="form-control mb-2" name="option4" value="{{ question.option4 }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="correct_option" class="form-label">Poprawna opcja</label>
+            <select class="form-select" id="correct_option" name="correct_option" required>
+                <option value="1" {% if question.correct_option == 1 %}selected{% endif %}>Opcja 1</option>
+                <option value="2" {% if question.correct_option == 2 %}selected{% endif %}>Opcja 2</option>
+                <option value="3" {% if question.correct_option == 3 %}selected{% endif %}>Opcja 3</option>
+                <option value="4" {% if question.correct_option == 4 %}selected{% endif %}>Opcja 4</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+        <a href="{{ url_for('admin_questions', quiz_id=question.quiz_id) }}" class="btn btn-secondary">Anuluj</a>
+    </form>
+</div>
+{% endblock %}

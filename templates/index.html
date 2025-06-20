@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">Witaj w QuizApp!</h1>
+            <p class="col-md-8 fs-4">Sprawdź swoją wiedzę w quizach z różnych dziedzin i rywalizuj z innymi użytkownikami.</p>
+            <a href="{{ url_for('browse_quizzes') }}" class="btn btn-primary btn-lg">Przeglądaj quizy</a>
+        </div>
+    </div>
+
+    <h2 class="mb-4">Popularne quizy</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for quiz in popular_quizzes %}
+        <div class="col">
+            <div class="card h-100 quiz-card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ quiz.title }}</h5>
+                    <p class="card-text">{{ quiz.description|truncate(100) }}</p>
+                    <p class="text-muted">Kategoria: {{ quiz.category.name }}</p>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ url_for('quiz_detail', quiz_id=quiz.id) }}" class="btn btn-outline-primary">Szczegóły</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <h2 class="my-4">Kategorie</h2>
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        {% for category in categories %}
+        <div class="col">
+            <div class="card h-100 category-card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ category.name }}</h5>
+                    <p class="card-text">{{ category.description|truncate(100) }}</p>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ url_for('browse_quizzes', category_id=category.id) }}" class="btn btn-sm btn-outline-secondary">Przeglądaj</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

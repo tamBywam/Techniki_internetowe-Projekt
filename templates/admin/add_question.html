@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4">Dodaj pytanie do quizu: {{ quiz.title }}</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="content" class="form-label">Treść pytania</label>
+            <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Opcje odpowiedzi</label>
+            <input type="text" class="form-control mb-2" name="option1" placeholder="Opcja 1" required>
+            <input type="text" class="form-control mb-2" name="option2" placeholder="Opcja 2" required>
+            <input type="text" class="form-control mb-2" name="option3" placeholder="Opcja 3" required>
+            <input type="text" class="form-control mb-2" name="option4" placeholder="Opcja 4" required>
+        </div>
+        <div class="mb-3">
+            <label for="correct_option" class="form-label">Poprawna opcja</label>
+            <select class="form-select" id="correct_option" name="correct_option" required>
+                <option value="1">Opcja 1</option>
+                <option value="2">Opcja 2</option>
+                <option value="3">Opcja 3</option>
+                <option value="4">Opcja 4</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Dodaj pytanie</button>
+        <a href="{{ url_for('admin_questions', quiz_id=quiz.id) }}" class="btn btn-secondary">Anuluj</a>
+    </form>
+</div>
+{% endblock %}

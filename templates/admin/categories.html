@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4">Zarządzanie kategoriami</h2>
+    <a href="{{ url_for('add_category') }}" class="btn btn-success mb-3">Dodaj kategorię</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nazwa</th>
+                <th>Opis</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+            <tr>
+                <td>{{ category.name }}</td>
+                <td>{{ category.description|truncate(50) }}</td>
+                <td>
+                    <a href="{{ url_for('edit_category', category_id=category.id) }}" class="btn btn-primary btn-sm">Edytuj</a>
+                    <form action="{{ url_for('delete_category', category_id=category.id) }}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Czy na pewno chcesz usunąć tę kategorię?');">Usuń</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

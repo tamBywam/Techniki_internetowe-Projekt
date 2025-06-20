@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4">Edytuj quiz: {{ quiz.title }}</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="title" class="form-label">Tytuł quizu</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ quiz.title }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Opis</label>
+            <textarea class="form-control" id="description" name="description" rows="3">{{ quiz.description }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="category_id" class="form-label">Kategoria</label>
+            <select class="form-select" id="category_id" name="category_id" required>
+                {% for category in categories %}
+                <option value="{{ category.id }}" {% if category.id == quiz.category_id %}selected{% endif %}>{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+        <a href="{{ url_for('admin_quizzes') }}" class="btn btn-secondary">Anuluj</a>
+    </form>
+</div>
+{% endblock %}

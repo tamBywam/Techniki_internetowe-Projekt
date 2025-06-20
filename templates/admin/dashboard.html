@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4">Panel administracyjny</h2>
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Użytkownicy</h5>
+                    <p class="card-text">Zarządzaj użytkownikami systemu.</p>
+                    <a href="{{ url_for('admin_users') }}" class="btn btn-primary">Przejdź</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Kategorie</h5>
+                    <p class="card-text">Zarządzaj kategoriami quizów.</p>
+                    <a href="{{ url_for('admin_categories') }}" class="btn btn-primary">Przejdź</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Quizy</h5>
+                    <p class="card-text">Zarządzaj quizami i pytaniami.</p>
+                    <a href="{{ url_for('admin_quizzes') }}" class="btn btn-primary">Przejdź</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

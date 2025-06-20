@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4">Profil użytkownika: {{ current_user.username }}</h2>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            Statystyki
+        </div>
+        <div class="card-body">
+            <p class="card-text">Liczba rozwiązanych quizów: <strong>{{ user_stats.quizzes_attempted }}</strong></p>
+            <p class="card-text">Liczba odpowiedzi: <strong>{{ user_stats.total_questions }}</strong></p>
+            <p class="card-text">Poprawne odpowiedzi: <strong>{{ user_stats.correct_answers }}</strong></p>
+            {% if user_stats.total_questions > 0 %}
+            <p class="card-text">Skuteczność: <strong>{{ (user_stats.correct_answers / user_stats.total_questions * 100)|round(2) }}%</strong></p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
