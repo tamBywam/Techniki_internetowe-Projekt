@@ -31,8 +31,8 @@ e) **[5 pkt]** Frontend (funkcjonalność użytkownika):
 
 ## Wymagane pliki
 a) **`zad7-9_framework_nazwisko_nrindeksu.zip`**  
-   - Kompletne rozwiązanie zadania  
-<br>
+   - Kompletne rozwiązanie zadania
+
 b) **`zad7-9_framework_nazwisko_nrindeksu.pdf`** zawierający:
    - Stronę tytułową z uproszczonym projektem
    - Uporządkowane printscreeny prezentujące:
